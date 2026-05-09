@@ -10,6 +10,7 @@ app = Flask(__name__)
 
 # 1. Persiapan Resource NLP
 nltk.download('punkt')
+nltk.download('punkt_tab')  
 nltk.download('stopwords')
 
 # 2. Pemuatan Model dan Alat Transformasi
@@ -58,7 +59,7 @@ def predict():
         processed_text = clean_text(raw_text)
         
         # Tahap 2: Vektorisasi TF-IDF
-        vectorized_text = vectorizer.transform([processed_text])
+        vectorized_text = vectorizer.transform([processed_text]).toarray() 
         
         # Tahap 3: Prediksi menggunakan Model
         prediction_num = model.predict(vectorized_text)
@@ -78,10 +79,11 @@ def api_predict():
         return jsonify({'error': 'No text provided'}), 400
     
     clean = clean_text(data['text'])
-    vec = vectorizer.transform([clean])
+    vec = vectorizer.transform([clean]).toarray()
     pred = model.predict(vec)
     category = label_encoder.inverse_transform(pred)[0]
     
+
     return jsonify({'category': category})
 
 if __name__ == '__main__':
