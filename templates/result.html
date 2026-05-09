@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result | Neural News Engine</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Wrapper utama untuk memastikan konten di tengah layar -->
+    <div class="wrapper" style="width: 90%; max-width: 600px; display: flex; flex-direction: column; align-items: center;">
+        
+        <div class="glass-card" style="padding: 40px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+            
+            <p class="result-header" style="margin-bottom: 0;">HASIL ANALISIS</p>
+            
+            <!-- Kategori dengan ukuran yang pas -->
+            <h2 class="category-title cat-{{ prediction }}" style="font-size: 5rem; margin: 10px 0;">
+                {{ prediction }}
+            </h2>
+            
+            <!-- Box Teks Berita dengan scroll internal jika terlalu panjang -->
+            <div class="text-box" style="width: 100%; margin: 10px 0; max-height: 200px; overflow-y: auto;">
+                <p style="font-size: 1rem; color: var(--text-muted); text-align: left; line-height: 1.6;">
+                    "{{ original_text }}"
+                </p>
+            </div>
+            
+            <!-- Tombol Kembali -->
+            <a href="/" style="text-decoration: none; width: 100%;">
+                <button class="btn-shine" style="width: 100%; padding: 18px;">
+                    KEMBALI
+                </button>
+            </a>
+        </div>
+
+        <footer style="margin-top: 25px; text-align: center; color: var(--text-muted); font-size: 0.8rem; opacity: 0.8;">
+            &copy; 2026 Text Mining | Project Klasifikasi Berita
+        </footer>
+    </div>
+</body>
+</html>
