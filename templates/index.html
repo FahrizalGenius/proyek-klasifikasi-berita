@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural News Engine | AI Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="wrapper" style="width: 95%; max-width: 1100px; display: flex; flex-direction: column; gap: 20px;">
+        
+        <!-- HEADER -->
+        <header style="text-align: center; padding: 10px 0;">
+            <h1 style="margin-bottom: 5px;">Neural News Engine</h1>
+            <p class="subtitle">Sistem Klasifikasi Berita Otomatis Berbasis Artificial Intelligence</p>
+        </header>
+
+        <!-- MAIN GRID LAYOUT -->
+        <div class="grid-container" style="display: grid; grid-template-columns: 1fr 340px; gap: 20px; align-items: stretch;">
+            
+            <!-- SEARCH CARD -->
+            <div class="glass-card" style="padding: 35px; display: flex; flex-direction: column; justify-content: space-between;">
+                <form action="/predict" method="POST" style="display: flex; flex-direction: column; height: 100%;">
+                    <textarea name="news_text" placeholder="Tempelkan artikel berita bahasa Indonesia di sini..." required style="flex-grow: 1; min-height: 250px; margin-bottom: 25px;"></textarea>
+                    <button type="submit" class="btn-shine">MULAI ANALISIS TEKS</button>
+                </form>
+                {% if error %}
+                <p style="color: #dc2626; text-align: center; margin-top: 15px; font-weight: 600;">{{ error }}</p>
+                {% endif %}
+            </div>
+
+            <!-- SIDE PANEL (Tingginya otomatis sejajar dengan SEARCH CARD) -->
+            <div class="side-panel" style="display: flex; flex-direction: column; gap: 20px;">
+                
+                <!-- TECH STACK CARD -->
+                <div class="glass-card" style="padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                    <h3 style="font-size: 0.85rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 20px; text-transform: uppercase;">Tech Stack</h3>
+                    <div style="margin-bottom: 18px;">
+                        <p style="font-weight: 800; font-size: 1.15rem; color: var(--text-main);">SVM Model</p>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Support Vector Machine</p>
+                    </div>
+                    <div>
+                        <p style="font-weight: 800; font-size: 1.15rem; color: var(--secondary);">TF-IDF</p>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Term Frequency-Inverse Document Frequency</p>
+                    </div>
+                </div>
+
+                <!-- KATEGORI CARD -->
+                <div class="glass-card" style="padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                    <h3 style="font-size: 0.85rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 20px; text-transform: uppercase;">Kategori</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        <span class="cat-pill" style="color: #2563eb; background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2);">EDU</span>
+                        <span class="cat-pill" style="color: #059669; background: rgba(5, 150, 105, 0.1); border: 1px solid rgba(5, 150, 105, 0.2);">FINANCE</span>
+                        <span class="cat-pill" style="color: #dc2626; background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.2);">HOT</span>
+                        <span class="cat-pill" style="color: #475569; background: rgba(71, 85, 105, 0.1); border: 1px solid rgba(71, 85, 105, 0.2);">NEWS</span>
+                        <span class="cat-pill" style="color: #d97706; background: rgba(217, 119, 6, 0.1); border: 1px solid rgba(217, 119, 6, 0.2);">SPORT</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARA KERJA CARD -->
+        <div class="glass-card" style="padding: 25px; text-align: left; animation-delay: 0.2s;">
+            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;">
+                <strong style="color: var(--text-main);">Cara Kerja:</strong> Masukkan teks berita ke dalam sistem. Program akan melakukan tahap <em>preprocessing</em> teks seperti pembersihan data dan pengubahan kata ke bentuk dasar. Selanjutnya, fitur diekstraksi menggunakan pembobotan <strong>TF-IDF</strong> untuk mengenali pola kata unik. Terakhir, algoritma <strong>SVM</strong> akan memproses pola tersebut untuk menentukan kategori berita secara akurat.
+            </p>
+        </div>
+
+    </div>
+
+    <style>
+        .cat-pill {
+            font-size: 0.75rem; 
+            font-weight: 700; 
+            padding: 6px 12px; 
+            border-radius: 10px;
+        }
+        @media (max-width: 850px) {
+            .grid-container { grid-template-columns: 1fr !important; }
+            .side-panel { height: auto !important; }
+        }
+    </style>
+</body>
+</html>
